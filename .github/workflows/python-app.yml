@@ -18,7 +18,7 @@ jobs:
         run: python --version
 
       - name: Run Even-Odd Program
-        shell: pwsh
+        shell: powershell
         run: |
           "7" | python even_odd.py
 
