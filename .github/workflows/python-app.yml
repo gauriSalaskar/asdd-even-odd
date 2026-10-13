@@ -1,0 +1,75 @@
+name: Even-Odd CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Python Program
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check Python
+        run: python --version
+
+      - name: Run Even-Odd Program
+        shell: pwsh
+        run: |
+          "7" | python even_odd.py
+
+  sonarqube:
+    name: SonarQube Analysis
+    needs: test
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+
+
+
+
+
+# name: PROJECT-NAME
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   test:
+#     runs-on: self-hosted
+#     steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v4
+
+#       - name: Run Tests
+#         run: YOUR-TEST-COMMAND
+
+#   sonarqube:
+#     needs: test
+#     runs-on: self-hosted
+#     steps:
+#       # SonarQube steps
+
+#   deploy:
+#     needs: sonarqube
+#     runs-on: self-hosted
+#     steps:
+      # Build and deployment steps
+          
