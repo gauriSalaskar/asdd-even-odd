@@ -18,9 +18,10 @@ jobs:
         run: python --version
 
       - name: Run Even-Odd Program
-        shell: powershell
+        shell: powershell 
         run: |
-          python -c "print('7')" | python even_odd.py
+          $env:PYTHONIOENCODING = "utf-8"
+          "7" | python -c "import sys; sys.stdout.write(sys.stdin.read().replace('\ufeff', ''))" | python even_odd.py
 
   sonarqube:
     name: SonarQube Analysis
