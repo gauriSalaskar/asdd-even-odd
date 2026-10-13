@@ -20,7 +20,7 @@ jobs:
       - name: Run Even-Odd Program
         shell: powershell
         run: |
-          "7" | python even_odd.py
+          python -c "print('7')" | python even_odd.py
 
   sonarqube:
     name: SonarQube Analysis
